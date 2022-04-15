@@ -1,0 +1,46 @@
+{
+    "name": "ambengers/kinetic",
+    "description": "Adds view-composer like feature to Inertia.js Laravel adapter.",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://github.com/ambengers/kinetic",
+    "authors": [
+        {
+            "name": "Marvin Quezon",
+            "email": "quezon.marvin@gmail.com"
+        }
+    ],
+    "keywords": [
+        "Laravel",
+        "Inertia",
+        "InertiaJS",
+        "Inertia.js",
+        "View",
+        "Composer"
+    ],
+    "require": {
+        "inertiajs/inertia-laravel": "^0.5.4"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0|^5.0|^6.4|^7.0",
+        "phpunit/phpunit": "^8.0|^9.5.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ambengers\\Kinetic\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ambengers\\Kinetic\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ambengers\\Kinetic\\KineticServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev"
+}
