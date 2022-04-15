@@ -2,6 +2,8 @@
 
 A package that adds view-composer like feature to Inertia.js Laravel adapter.
 
+Use to be able to share props based on the component's name.
+
 ## Installation
 
 `composer require ambengers/kinetic`
