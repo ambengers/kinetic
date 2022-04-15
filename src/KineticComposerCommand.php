@@ -27,7 +27,7 @@ class KineticComposerCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__.'../stubs/composer.stub';
+        return __DIR__.'/../stubs/composer.stub';
     }
 
     /**
