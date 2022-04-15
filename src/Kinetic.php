@@ -13,8 +13,8 @@ class Kinetic extends ResponseFactory
 
     public function flushShared(): void
     {
-        $this->sharedProps = [];
         $this->composedProps = [];
+        parent::flushShared();
     }
 
     /**
@@ -30,12 +30,7 @@ class Kinetic extends ResponseFactory
 
         $this->resolveComposedProps($component);
 
-        return new Response(
-            $component,
-            array_merge($this->sharedProps, $props, $this->composedProps),
-            $this->rootView,
-            $this->getVersion()
-        );
+        return parent::render($component, array_merge($props, $this->composedProps));
     }
 
     /**
@@ -52,7 +47,7 @@ class Kinetic extends ResponseFactory
     }
 
     /**
-     * @param  string|array|Arrayable  $key
+     * @param  string|array  $key
      * @param  mixed|null  $value
      */
     public function with($key, $value = null)
