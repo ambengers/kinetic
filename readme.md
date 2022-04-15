@@ -2,7 +2,7 @@
 
 A package that adds view-composer like feature to Inertia.js Laravel adapter.
 
-Use to be able to share props based on the component's name.
+Use to be able to share props based on the Inertia component name.
 
 ## Installation
 
@@ -71,6 +71,8 @@ Inertia::composer('User/Profile', function (ResponseFactory $inertia) {
     ]);
 });
 ```
+
+When you call the `Inertia::render('User/Profile', [])` the props should now include the composed data.
 
 ## Security
 
