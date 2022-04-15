@@ -17,5 +17,9 @@ class KineticServiceProvider extends ServiceProvider
         $this->app->singleton(ComposerBag::class);
         $this->app->singleton(Kinetic::class);
         $this->app->bind(ResponseFactory::class, Kinetic::class);
+
+        if ($this->app->runningInConsole()) {
+            $this->commands(KineticComposerCommand::class);
+        }
     }
 }

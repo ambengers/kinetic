@@ -1,0 +1,19 @@
+<?php
+
+namespace DummyNamespace;
+
+use Inertia\ResponseFactory;
+
+class DummyClass
+{
+    /**
+     * Compose the data for the Inertia component.
+     *
+     * @param  Inertia\ResponseFactory $inertia
+     * @return void
+     */
+    public function compose(ResponseFactory $inertia)
+    {
+        // $inertia->with(...);
+    }
+}
