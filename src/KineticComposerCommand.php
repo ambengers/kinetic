@@ -42,6 +42,6 @@ class KineticComposerCommand extends GeneratorCommand
             mkdir($path);
         }
 
-        return $path
+        return $path;
     }
 }
