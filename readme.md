@@ -4,6 +4,8 @@ A package that adds view-composer like feature to Inertia.js Laravel adapter.
 
 Use to be able to share props based on the Inertia component name.
 
+[![CircleCI](https://circleci.com/gh/ambengers/kinetic/tree/main.svg?style=svg)](https://circleci.com/gh/ambengers/kinetic/tree/main)
+
 ## Installation
 
 ```
