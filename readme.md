@@ -72,7 +72,7 @@ Inertia::composer('User/Profile', function (ResponseFactory $inertia) {
 });
 ```
 
-When you call the `Inertia::render('User/Profile', [])` the props should now include the composed data.
+When you call the `Inertia::render('User/Profile')` the props should now include the composed data.
 
 ## Security
 
