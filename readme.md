@@ -6,13 +6,15 @@ Use to be able to share props based on the component's name.
 
 ## Installation
 
-`composer require ambengers/kinetic`
+```
+$ composer require ambengers/kinetic
+```
 
 ## Usage
 
 This should be very intuitive if you are already familiar on how view composers work in Laravel.
 
-You can use `Inertia::composer($component, $composer)` in any service provider to register composers for specific components.
+You can use `Inertia::composer()` in any service provider to register composers for specific components.
 The first argument accepts either a string or an array of Inertia components, and the second argument accepts either class or a callback function.
 
 ```
@@ -37,8 +39,13 @@ class AppServiceProvider extends ServiceProvider
 
 ### Class-based composers
 
-Your class-based composers must contain a `compose` method that will accept an instance of `Inertia\ResponseFactory` class as the first argument.
-Then you can call the `with(...)` method from the factory class to set the composed props.
+You can generate your composer class using this command:
+
+```
+$ php artisan kinetic:composer UserComposer
+```
+
+Then you can call the `$inertia->with()` method within the compose method to set the composed props, like so:
 
 ```
 class UserComposer
@@ -53,7 +60,7 @@ class UserComposer
 ### Callback-based composers
 
 If you opt for a callback-based composer, your callback must accept an instance of `Inertia\ResponseFactory` class as the first argument.
-Then you can call the `with(...)` method from the factory class to set the composed props.
+Then you can call the `with()` method from the factory class to set the composed props like so:
 
 ```
 Inertia::composer('User/Profile', function (ResponseFactory $inertia) {
