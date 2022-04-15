@@ -2,6 +2,8 @@
 
 namespace Ambengers\Kinetic;
 
+use Illuminate\Console\GeneratorCommand;
+
 class KineticComposerCommand extends GeneratorCommand
 {
     /**
