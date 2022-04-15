@@ -38,12 +38,6 @@ class KineticComposerCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        $path = app_path('Inertia/Composers');
-
-        if (! is_dir($path)) {
-            mkdir($path);
-        }
-
-        return $path;
+        return $rootNamespace.'\Inertia\Composers';
     }
 }
