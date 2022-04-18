@@ -21,6 +21,13 @@ class KineticComposerCommand extends GeneratorCommand
     protected $description = 'Create a Kinetic composer class.';
 
     /**
+     * The type of class being generated.
+     *
+     * @var string
+     */
+    protected $type = 'Composer';
+
+    /**
      * Get the stub file for the generator.
      *
      * @return string
