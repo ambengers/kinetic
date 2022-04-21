@@ -35,13 +35,11 @@ class Kinetic extends ResponseFactory
 
     /**
      * @param  string|array  $component
-     * @param  Closure|string  $composer
+     * @param  Closure|array|string  $composer
      */
-    public function composer($components, $composer)
+    public function composer($components, $composers)
     {
-        foreach ((array) $components as $component) {
-            $this->composerBag()->set($component, $composer);
-        }
+        $this->composerBag()->set($components, $composers);
 
         return $this;
     }

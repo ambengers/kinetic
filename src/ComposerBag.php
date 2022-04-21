@@ -3,6 +3,7 @@
 namespace Ambengers\Kinetic;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Inertia\ResponseFactory;
 
 class ComposerBag
@@ -22,12 +23,23 @@ class ComposerBag
     }
 
     /**
-     * @param  string  $component
-     * @param  Closure|mixed  $composer
+     * @param  string|array  $component
+     * @param  Closure|array|string  $composer
      */
-    public function set($component, $composer)
+    public function set($components, $composers)
     {
-        $this->composers[$component][] = $composer;
+        $composers = is_array($composers) ? $composers : [$composers];
+
+        foreach ((array) $components as $component) {
+            // Let us merge the existing composers for the component if any
+            // and then we will make sure we only set unique composers...
+            $composers = Collection::make([
+                ...$this->get($component, []),
+                ...$composers,
+            ])->unique()->toArray();
+
+            $this->composers[$component] = $composers;
+        }
 
         return $this;
     }
@@ -35,9 +47,9 @@ class ComposerBag
     /**
      * @param  string|null  $component
      */
-    public function get($component = null)
+    public function get($component = null, $default = null)
     {
-        return Arr::get($this->composers, $component);
+        return Arr::get($this->composers, $component, $default);
     }
 
     /**

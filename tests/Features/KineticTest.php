@@ -12,15 +12,60 @@ use Inertia\ResponseFactory;
 
 class KineticTest extends BaseTestCase
 {
-    public function test_can_set_composers_to_composer_bag()
+    public function test_can_set_class_based_composer_to_composer_bag()
     {
         app(ComposerBag::class)->set('User', UserComposer::class);
+
+        $this->assertEquals([UserComposer::class], app(ComposerBag::class)->get('User'));
+    }
+
+    public function test_can_set_closure_based_composer_to_composer_bag()
+    {
         app(ComposerBag::class)->set('User', $callback = fn () => 'Hello User!');
 
-        $this->assertEquals(
-            [UserComposer::class, $callback],
-            app(ComposerBag::class)->get('User')
-        );
+        $this->assertEquals([$callback], app(ComposerBag::class)->get('User'));
+    }
+
+    public function test_can_set_array_of_composers_to_composer_bag()
+    {
+        $composers = [
+            UserComposer::class,
+            $callback = fn () => 'Hello User!',
+        ];
+
+        app(ComposerBag::class)->set('User', $composers);
+
+        $this->assertEquals($composers, app(ComposerBag::class)->get('User'));
+    }
+
+    /** @test */
+    public function can_set_additional_composers()
+    {
+        $composers = [
+            UserComposer::class,
+            fn () => 'Hello User!',
+        ];
+
+        app(ComposerBag::class)->set('User', $composers);
+
+        app(ComposerBag::class)->set('User', $callback = fn () => 'Hey There!');
+
+        $this->assertEquals([...$composers, $callback], app(ComposerBag::class)->get('User'));
+    }
+
+    public function test_composer_bag_sets_unique_composers()
+    {
+        $composers = [
+            UserComposer::class,
+            $callback = fn () => 'Hello User!',
+        ];
+
+        app(ComposerBag::class)->set('User', $composers);
+
+        app(ComposerBag::class)->set('User', UserComposer::class);
+        app(ComposerBag::class)->set('User', $callback);
+
+        $this->assertEquals($composers, app(ComposerBag::class)->get('User'));
     }
 
     public function test_can_get_all_composers_from_composer_bag()
