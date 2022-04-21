@@ -17,7 +17,7 @@ $ composer require ambengers/kinetic
 This should be very intuitive if you are already familiar on how view composers work in Laravel.
 
 You can use `Inertia::composer()` in any service provider to register composers for specific components.
-The first argument accepts either a string or an array of Inertia components, and the second argument accepts either class or a callback function.
+The first argument accepts either a string or an array of Inertia components, and the second argument accepts either class string or a closure.
 
 ```
 use Inertia;
@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
         // Class-based composer..
         Inertia::composer('User/Profile', UserComposer::class);
 
-        // Callback-based composer..
+        // Closure-based composer..
         Inertia::composer('User/Profile', function (ResponseFactory $inertia) {
             //
         });
@@ -59,9 +59,9 @@ class UserComposer
 }
 ```
 
-### Callback-based composers
+### Closure-based composers
 
-If you opt for a callback-based composer, your callback must accept an instance of `Inertia\ResponseFactory` class as the first argument.
+If you opt for a closure-based composer, your closure must accept an instance of `Inertia\ResponseFactory` class as the first argument.
 Then you can call the `with()` method from the factory class to set the composed props like so:
 
 ```
@@ -73,6 +73,21 @@ Inertia::composer('User/Profile', function (ResponseFactory $inertia) {
     ]);
 });
 ```
+
+### Multiple composers
+
+You can also set multiple composers to components using array, like so:
+
+```
+Inertia::composer(['User/Profile', 'User/Index'], [
+    UserComposer::class,
+    function (ResponseFactory $inertia) {
+        $inertia->with(...);
+    }
+]);
+```
+
+The array will be automatically merged with any existing composers for the components.
 
 When you call the `Inertia::render('User/Profile')` the props should now include the composed data.
 
