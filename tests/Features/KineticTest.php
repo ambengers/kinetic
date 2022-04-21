@@ -38,8 +38,8 @@ class KineticTest extends BaseTestCase
         $this->assertEquals($composers, app(ComposerBag::class)->get('User'));
     }
 
-    /** @test */
-    public function can_set_additional_composers()
+
+    public function test_additional_composers_are_merged_with_existing_ones()
     {
         $composers = [
             UserComposer::class,
@@ -53,7 +53,7 @@ class KineticTest extends BaseTestCase
         $this->assertEquals([...$composers, $callback], app(ComposerBag::class)->get('User'));
     }
 
-    public function test_composer_bag_sets_unique_composers()
+    public function test_duplicate_composers_are_removed_from_the_bag()
     {
         $composers = [
             UserComposer::class,
