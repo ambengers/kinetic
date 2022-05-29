@@ -8,7 +8,7 @@ Use to be able to share props based on the Inertia component name.
 
 ## Installation
 
-```
+```sh
 $ composer require ambengers/kinetic
 ```
 
@@ -19,7 +19,7 @@ This should be very intuitive if you are already familiar on how view composers 
 You can use `Inertia::composer()` in any service provider to register composers for specific components.
 The first argument accepts either a string or an array of Inertia components, and the second argument accepts either class string or a closure.
 
-```
+```php
 use Inertia;
 use Inertia\ResponseFactory;
 use App\Composers\UserComposer;
@@ -43,13 +43,13 @@ class AppServiceProvider extends ServiceProvider
 
 You can generate your composer class using this command:
 
-```
+```sh
 $ php artisan kinetic:composer UserComposer
 ```
 
 Then you can call the `$inertia->with()` method within the compose method to set the composed props, like so:
 
-```
+```php
 class UserComposer
 {
     public function compose(ResponseFactory $inertia)
@@ -64,7 +64,7 @@ class UserComposer
 If you opt for a closure-based composer, your closure must accept an instance of `Inertia\ResponseFactory` class as the first argument.
 Then you can call the `with()` method from the factory class to set the composed props like so:
 
-```
+```php
 Inertia::composer('User/Profile', function (ResponseFactory $inertia) {
     $inertia->with([
         'post' => [
@@ -78,7 +78,7 @@ Inertia::composer('User/Profile', function (ResponseFactory $inertia) {
 
 You can also set multiple composers to components using array, like so:
 
-```
+```php
 Inertia::composer(['User/Profile', 'User/Index'], [
     UserComposer::class,
     function (ResponseFactory $inertia) {
