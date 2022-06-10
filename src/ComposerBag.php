@@ -23,10 +23,12 @@ class ComposerBag
     }
 
     /**
-     * @param  string|array  $component
-     * @param  Closure|array|string  $composer
+     * @param  string|array           $components
+     * @param  \Closure|array|string  $composers
+     *
+     * @return self
      */
-    public function set($components, $composers)
+    public function set($components, $composers): self
     {
         $composers = is_array($composers) ? $composers : [$composers];
 
@@ -45,21 +47,25 @@ class ComposerBag
     }
 
     /**
-     * @param  string|null  $component
+     * @param  string|null             $component
+     * @param  \Closure|array|string   $default
+     * @return array
      */
-    public function get($component = null, $default = null)
+    public function get($component = null, $default = [])
     {
-        return Arr::get($this->composers, $component, $default);
+        return Arr::wrap(Arr::get($this->composers, $component, $default));
     }
 
     /**
      * @param  string  $component
+     *
+     * @return void
      */
     public function compose($component)
     {
         $composers = $this->get($component);
 
-        foreach ($composers ?? [] as $composer) {
+        foreach ($composers as $composer) {
             if (is_string($composer)) {
                 app($composer)->compose($this->factory);
             } else {

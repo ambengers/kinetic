@@ -6,6 +6,9 @@ use Illuminate\Contracts\Support\Arrayable;
 use Inertia\Response;
 use Inertia\ResponseFactory;
 
+/**
+ * @mixin \Inertia\ResponseFactory
+ */
 class Kinetic extends ResponseFactory
 {
     /** @var array */
@@ -34,10 +37,12 @@ class Kinetic extends ResponseFactory
     }
 
     /**
-     * @param  string|array  $component
-     * @param  Closure|array|string  $composer
+     * @param  string|array             $components
+     * @param  \Closure|array|string    $composers
+     *
+     * @return self
      */
-    public function composer($components, $composers)
+    public function composer($components, $composers): self
     {
         $this->composerBag()->set($components, $composers);
 
@@ -47,8 +52,10 @@ class Kinetic extends ResponseFactory
     /**
      * @param  string|array  $key
      * @param  mixed|null  $value
+     *
+     * @return self
      */
-    public function with($key, $value = null)
+    public function with($key, $value = null): self
     {
         if (is_array($key)) {
             $this->composedProps = array_merge($this->composedProps, $key);
@@ -59,12 +66,19 @@ class Kinetic extends ResponseFactory
         return $this;
     }
 
+    /**
+     * @return \Ambengers\Kinetic\ComposerBag
+     */
     protected function composerBag()
     {
         return app(ComposerBag::class);
     }
 
-    protected function resolveComposedProps($component) : void
+    /**
+     * @param  string $component
+     * @return void
+     */
+    protected function resolveComposedProps(string $component) : void
     {
         $this->composerBag()->compose($component);
     }
