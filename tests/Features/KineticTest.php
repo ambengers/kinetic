@@ -8,25 +8,24 @@ use Ambengers\Kinetic\Tests\Composers\UserComposer;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use Inertia\ResponseFactory;
 
 class KineticTest extends BaseTestCase
 {
-    public function test_can_set_class_based_composer_to_composer_bag()
+    public function test_can_set_class_based_composer_to_composer_bag(): void
     {
         app(ComposerBag::class)->set('User', UserComposer::class);
 
         $this->assertEquals([UserComposer::class], app(ComposerBag::class)->get('User'));
     }
 
-    public function test_can_set_closure_based_composer_to_composer_bag()
+    public function test_can_set_closure_based_composer_to_composer_bag(): void
     {
         app(ComposerBag::class)->set('User', $callback = fn () => 'Hello User!');
 
         $this->assertEquals([$callback], app(ComposerBag::class)->get('User'));
     }
 
-    public function test_can_set_array_of_composers_to_composer_bag()
+    public function test_can_set_array_of_composers_to_composer_bag(): void
     {
         $composers = [
             UserComposer::class,
@@ -39,7 +38,7 @@ class KineticTest extends BaseTestCase
     }
 
 
-    public function test_additional_composers_are_merged_with_existing_ones()
+    public function test_additional_composers_are_merged_with_existing_ones(): void
     {
         $composers = [
             UserComposer::class,
@@ -53,7 +52,7 @@ class KineticTest extends BaseTestCase
         $this->assertEquals([...$composers, $callback], app(ComposerBag::class)->get('User'));
     }
 
-    public function test_duplicate_composers_are_removed_from_the_bag()
+    public function test_duplicate_composers_are_removed_from_the_bag(): void
     {
         $composers = [
             UserComposer::class,
@@ -68,7 +67,7 @@ class KineticTest extends BaseTestCase
         $this->assertEquals($composers, app(ComposerBag::class)->get('User'));
     }
 
-    public function test_can_get_all_composers_from_composer_bag()
+    public function test_can_get_all_composers_from_composer_bag(): void
     {
         app(ComposerBag::class)->set('User', UserComposer::class);
         app(ComposerBag::class)->set('User', $user = fn () => 'Hello User!');
@@ -80,7 +79,7 @@ class KineticTest extends BaseTestCase
         ], app(ComposerBag::class)->get());
     }
 
-    public function test_can_set_same_composer_for_multiple_components()
+    public function test_can_set_same_composer_for_multiple_components(): void
     {
         Inertia::composer(['User', 'User/Profile'], UserComposer::class);
 
@@ -90,7 +89,7 @@ class KineticTest extends BaseTestCase
         ], app(ComposerBag::class)->get());
     }
 
-    public function test_can_use_class_based_composers_for_a_component()
+    public function test_can_use_class_based_composers_for_a_component(): void
     {
         Inertia::composer('User/Profile', UserComposer::class);
 
@@ -112,7 +111,7 @@ class KineticTest extends BaseTestCase
         ]);
     }
 
-    public function test_can_use_closure_based_composer_for_a_component()
+    public function test_can_use_closure_based_composer_for_a_component(): void
     {
         $post = [
             'title' => 'Composer from callback',
@@ -141,7 +140,7 @@ class KineticTest extends BaseTestCase
         ]);
     }
 
-    public function test_can_use_multiple_composer_for_a_component()
+    public function test_can_use_multiple_composer_for_a_component(): void
     {
         $post = [
             'title' => 'Composer from callback',
@@ -149,7 +148,7 @@ class KineticTest extends BaseTestCase
         ];
 
         Inertia::composer('User/Profile', UserComposer::class);
-        Inertia::composer('User/Profile', $callback = function (ResponseFactory $inertia) use ($post) {
+        Inertia::composer('User/Profile', $callback = function ($inertia) use ($post) {
             $inertia->with(['post' => $post]);
         });
 
