@@ -20,7 +20,7 @@
     ],
     "require": {
         "php": "~8.0.0|~8.1.0",
-        "inertiajs/inertia-laravel": "^0.5|^0.6"
+        "inertiajs/inertia-laravel": "~0.5"
     },
     "require-dev": {
         "orchestra/testbench": "^4.0|^5.0|^6.4|^7.0",
