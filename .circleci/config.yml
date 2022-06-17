@@ -19,3 +19,4 @@ jobs:
           paths:
             - ./vendor
       - run: ./vendor/bin/phpunit
+      - run: ./vendor/bin/phpstan analyse
