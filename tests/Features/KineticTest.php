@@ -173,4 +173,33 @@ class KineticTest extends BaseTestCase
             ),
         ]);
     }
+
+    public function test_can_use_star_character_for_attach_composers_to_all_components(): void
+    {
+        $description = 'this compose for all components.';
+
+        Inertia::composer('*', $callback = function ($inertia) use ($description) {
+            $inertia->with(['global' => $description]);
+        });
+
+        $this->assertEquals(
+            [$callback],
+            app(ComposerBag::class)->get('*')
+        );
+
+        Route::middleware([StartSession::class])->get('/', function () {
+            return Inertia::render('User/Profile', ['user' => 'John Doe']);
+        });
+
+        $response = $this->withoutExceptionHandling()->get('/', ['X-Inertia' => 'true']);
+
+        $response->assertSuccessful();
+        $response->assertJson([
+            'component' => 'User/Profile',
+            'props' => array_merge(
+                ['global' => $description],
+                ['user' => 'John Doe'],
+            ),
+        ]);
+    }
 }

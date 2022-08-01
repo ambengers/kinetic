@@ -91,6 +91,19 @@ The array will be automatically merged with any existing composers for the compo
 
 When you call the `Inertia::render('User/Profile')` the props should now include the composed data.
 
+### Attaching a composer to all components
+
+You can also set a composer or multiple composers to all components using the * character as a wildcard, like so:
+
+```php
+Inertia::composer('*', [
+    UserComposer::class,
+    function (ResponseFactory $inertia) {
+        $inertia->with(...);
+    }
+]);
+```
+
 ## Security
 
 If you discover any security related issues, please email author email instead of using the issue tracker.

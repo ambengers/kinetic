@@ -33,6 +33,9 @@ class Kinetic extends ResponseFactory
 
         $this->resolveComposedProps($component);
 
+        // The composer method also accepts the * character as a wildcard, allowing you to attach a composer to all components
+        $this->resolveComposedProps('*');
+
         return parent::render($component, array_merge($props, $this->composedProps));
     }
 
