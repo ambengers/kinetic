@@ -2,6 +2,7 @@
 
 namespace Ambengers\Kinetic;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Inertia\ResponseFactory;
@@ -36,7 +37,7 @@ class ComposerBag
             // Let us merge the existing composers for the component if any
             // and then we will make sure we only set unique composers...
             $composers = Collection::make([
-                ...$this->get($component, []),
+                ...Arr::get($this->composers, $component, []),
                 ...$composers,
             ])->unique()->toArray();
 
@@ -53,7 +54,18 @@ class ComposerBag
      */
     public function get($component = null, $default = [])
     {
-        return Arr::wrap(Arr::get($this->composers, $component, $default));
+        $composers = $this->composers;
+
+        foreach ($this->composers as $vue => $composer) {
+            if (Str::contains($vue, '*') && Str::is($vue, $component)) {
+                $composers[$component] = array_merge(
+                    Arr::get($composers, $component, []),
+                    Arr::wrap($composer),
+                );
+            }
+        }
+        
+        return Arr::wrap(Arr::get($composers, $component, $default));
     }
 
     /**
