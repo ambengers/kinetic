@@ -135,6 +135,21 @@ class KineticTest extends BaseTestCase
         );
     }
 
+    public function test_can_use_wildcard_composer_to_match_all_components()
+    {
+        Inertia::composer('*', UserComposer::class);
+
+        $this->assertEquals(
+            [UserComposer::class],
+            app(ComposerBag::class)->get('Foo')
+        );
+
+        $this->assertEquals(
+            [UserComposer::class],
+            app(ComposerBag::class)->get('Bar')
+        );
+    }
+
     public function test_can_use_class_based_composers_for_a_component(): void
     {
         Inertia::composer('User/Profile', UserComposer::class);
