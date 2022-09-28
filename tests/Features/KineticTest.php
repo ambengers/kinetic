@@ -89,6 +89,52 @@ class KineticTest extends BaseTestCase
         ], app(ComposerBag::class)->get());
     }
 
+    public function test_can_use_wildcard_composer_for_nested_components()
+    {
+        Inertia::composer('User/*', UserComposer::class);
+
+        $this->assertEquals(
+            [],
+            app(ComposerBag::class)->get('User')
+        );
+
+        $this->assertEquals(
+            [UserComposer::class],
+            app(ComposerBag::class)->get('User/Profile')
+        );
+
+        $this->assertEquals(
+            [UserComposer::class],
+            app(ComposerBag::class)->get('User/Admin/Profile')
+        );
+    }
+
+    public function test_can_use_wildcard_composer_with_named_and_closure_composers()
+    {
+        Inertia::composer('User/*', UserComposer::class);
+        Inertia::composer('User/Profile', $callback = function () {});
+
+        $this->assertEquals(
+            [$callback, UserComposer::class],
+            app(ComposerBag::class)->get('User/Profile')
+        );
+    }
+
+    public function test_can_use_nested_wildcard_composers()
+    {
+        Inertia::composer(['User/*', 'Users/*/Profile'], UserComposer::class);
+
+        $this->assertEquals(
+            [UserComposer::class],
+            app(ComposerBag::class)->get('User/Profile')
+        );
+
+        $this->assertEquals(
+            [UserComposer::class],
+            app(ComposerBag::class)->get('User/Admin/Profile')
+        );
+    }
+
     public function test_can_use_class_based_composers_for_a_component(): void
     {
         Inertia::composer('User/Profile', UserComposer::class);
