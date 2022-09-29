@@ -56,8 +56,8 @@ class ComposerBag
     {
         $composers = $this->composers;
 
-        foreach ($this->composers as $vue => $composer) {
-            if (Str::contains($vue, '*') && Str::is($vue, $component)) {
+        foreach ($this->composers as $page => $composer) {
+            if (Str::contains($page, '*') && Str::is($page, $component)) {
                 $composers[$component] = array_merge(
                     Arr::get($composers, $component, []),
                     Arr::wrap($composer),
