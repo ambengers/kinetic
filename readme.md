@@ -16,6 +16,8 @@ $ composer require ambengers/kinetic
 
 This should be very intuitive if you are already familiar on how view composers work in Laravel.
 
+### Basic Registration
+
 You can use `Inertia::composer()` in any service provider to register composers for specific components.
 The first argument accepts either a string or an array of Inertia components, and the second argument accepts either class string or a closure.
 
@@ -39,7 +41,16 @@ class AppServiceProvider extends ServiceProvider
 }
 ```
 
-### Class-based composers
+### Wildcard Registration
+
+You can also register composers to multiple components, or globally, using the wildcard `*` syntax.
+
+```php
+Inertia::composer('User/*', UserComposer::class); // Components within User folder will receive data from UserComposer
+Inertia::composer('*', GlobalComposer::class); // All components will receive data from GlobalComposer class
+```
+
+### Class-based Composers
 
 You can generate your composer class using this command:
 
@@ -59,7 +70,7 @@ class UserComposer
 }
 ```
 
-### Closure-based composers
+### Closure-based Composers
 
 If you opt for a closure-based composer, your closure must accept an instance of `Inertia\ResponseFactory` class as the first argument.
 Then you can call the `with()` method from the factory class to set the composed props like so:
@@ -74,7 +85,7 @@ Inertia::composer('User/Profile', function (ResponseFactory $inertia) {
 });
 ```
 
-### Multiple composers
+### Multiple Composers
 
 You can also set multiple composers to components using array, like so:
 
@@ -93,7 +104,7 @@ When you call the `Inertia::render('User/Profile')` the props should now include
 
 ## Security
 
-If you discover any security related issues, please email author email instead of using the issue tracker.
+If you discover any security related issues, please send the author an email instead of using the issue tracker.
 
 ## License
 
