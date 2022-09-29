@@ -30,10 +30,10 @@ class AppServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        // Class-based composer..
+        // Class-based Composer..
         Inertia::composer('User/Profile', UserComposer::class);
 
-        // Closure-based composer..
+        // Closure-based Composer..
         Inertia::composer('User/Profile', function (ResponseFactory $inertia) {
             //
         });
@@ -46,8 +46,11 @@ class AppServiceProvider extends ServiceProvider
 You can also register composers to multiple components, or globally, using the wildcard `*` syntax.
 
 ```php
-Inertia::composer('User/*', UserComposer::class); // Components within User folder will receive data from UserComposer
-Inertia::composer('*', GlobalComposer::class); // All components will receive data from GlobalComposer class
+// Components within User directory will receive data from UserComposer class
+Inertia::composer('User/*', UserComposer::class);
+
+// All components will receive data from GlobalComposer class
+Inertia::composer('*', GlobalComposer::class);
 ```
 
 ### Class-based Composers
