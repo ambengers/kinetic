@@ -37,7 +37,7 @@ class ComposerBag
             // Let us merge the existing composers for the component if any
             // and then we will make sure we only set unique composers...
             $composers = Collection::make([
-                ...Arr::get($this->composers, $component, []),
+                ...Arr::wrap(Arr::get($this->composers, $component, [])),
                 ...$composers,
             ])->unique()->toArray();
 
@@ -54,12 +54,16 @@ class ComposerBag
      */
     public function get($component = null, $default = [])
     {
+        if (is_null($component)) {
+            return $this->composers;
+        }
+
         $composers = $this->composers;
 
         foreach ($this->composers as $page => $composer) {
             if (Str::contains($page, '*') && Str::is($page, $component)) {
                 $composers[$component] = array_merge(
-                    Arr::get($composers, $component, []),
+                    Arr::wrap(Arr::get($composers, $component, [])),
                     Arr::wrap($composer),
                 );
             }

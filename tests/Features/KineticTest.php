@@ -89,9 +89,10 @@ class KineticTest extends BaseTestCase
         ], app(ComposerBag::class)->get());
     }
 
-    public function test_can_use_wildcard_composer_for_nested_components()
+    public function test_can_use_wildcard_composer_for_nested_components(): void
     {
         Inertia::composer('User/*', UserComposer::class);
+        Inertia::composer('User/*', $callback = fn () => 'Hello User Profile!');
 
         $this->assertEquals(
             [],
@@ -99,17 +100,17 @@ class KineticTest extends BaseTestCase
         );
 
         $this->assertEquals(
-            [UserComposer::class],
+            [UserComposer::class, $callback],
             app(ComposerBag::class)->get('User/Profile')
         );
 
         $this->assertEquals(
-            [UserComposer::class],
+            [UserComposer::class, $callback],
             app(ComposerBag::class)->get('User/Admin/Profile')
         );
     }
 
-    public function test_can_use_wildcard_composer_with_named_and_closure_composers()
+    public function test_can_use_wildcard_composer_with_named_and_closure_composers(): void
     {
         Inertia::composer('User/*', UserComposer::class);
         Inertia::composer('User/Profile', $callback = function () {});
@@ -118,9 +119,14 @@ class KineticTest extends BaseTestCase
             [$callback, UserComposer::class],
             app(ComposerBag::class)->get('User/Profile')
         );
+
+        $this->assertEquals(
+            [UserComposer::class],
+            app(ComposerBag::class)->get('User/Admin')
+        );
     }
 
-    public function test_can_use_nested_wildcard_composers()
+    public function test_can_use_nested_wildcard_composers(): void
     {
         Inertia::composer(['User/*', 'Users/*/Profile'], UserComposer::class);
 
@@ -135,7 +141,7 @@ class KineticTest extends BaseTestCase
         );
     }
 
-    public function test_can_use_wildcard_composer_to_match_all_components()
+    public function test_can_use_wildcard_composer_to_match_all_components(): void
     {
         Inertia::composer('*', UserComposer::class);
 
