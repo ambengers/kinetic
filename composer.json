@@ -19,7 +19,7 @@
         "Composer"
     ],
     "require": {
-        "php": "~8.0.0|~8.1.0",
+        "php": "~8.0.0|~8.1.0|~8.2.0",
         "inertiajs/inertia-laravel": "~0.5"
     },
     "require-dev": {
