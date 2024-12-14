@@ -9,7 +9,7 @@ Use to be able to share props based on the Inertia component name.
 ## Installation
 
 ```sh
-$ composer require ambengers/kinetic
+composer require ambengers/kinetic
 ```
 
 ## Usage
