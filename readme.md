@@ -9,8 +9,8 @@ Use to be able to share props based on the Inertia component name.
 ## Versions
 
 | InertiaJS    | Kinetic |
-| ------------ |---------|
-| 2.0          | 2.0     |
+|--------------|---------|
+| ^2.0         | ^2.0    |
 | ~0.5 to ^1.0 | 1.9     |
 
 ## Installation
