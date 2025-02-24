@@ -7,6 +7,9 @@ parameters:
         - tests
     ignoreErrors:
         - '#PHPDoc tag @var#'
+        - '#Call to an undefined static method Inertia\\Inertia::composer\(\).#'
+        -
+            identifier: missingType.generics
+        -
+            identifier: missingType.iterableValue
     reportUnmatchedIgnoredErrors: false
-    checkMissingIterableValueType: false
-    checkGenericClassInNonGenericObjectType: false
