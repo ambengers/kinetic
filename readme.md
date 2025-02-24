@@ -6,6 +6,13 @@ Use to be able to share props based on the Inertia component name.
 
 [![CircleCI](https://circleci.com/gh/ambengers/kinetic/tree/main.svg?style=svg)](https://circleci.com/gh/ambengers/kinetic/tree/main)
 
+## Versions
+
+| InertiaJS    | Kinetic |
+| ------------ |---------|
+| 2.0          | 2.0     |
+| ~0.5 to ^1.0 | 1.9     |
+
 ## Installation
 
 ```sh
