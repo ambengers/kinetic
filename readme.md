@@ -9,7 +9,7 @@ Use to be able to share props based on the Inertia component name.
 ## Installation
 
 ```sh
-$ composer require ambengers/kinetic
+composer require ambengers/kinetic
 ```
 
 ## Usage
@@ -58,7 +58,7 @@ Inertia::composer('*', GlobalComposer::class);
 You can generate your composer class using this command:
 
 ```sh
-$ php artisan kinetic:composer UserComposer
+php artisan kinetic:composer UserComposer
 ```
 
 Then you can call the `$inertia->with()` method within the compose method to set the composed props, like so:
